@@ -38,6 +38,11 @@ AMT_INCOME_TOTAL, NAME_EDUCATION_TYPE, NAME_FAMILY_STATUS, NAME_HOUSING_TYPE, DA
 
 - For FLAG_PHONE, it is already binary, so we don't need to do anything.
 - For FLAG_EMAIL, it is already binary, so we don't need to do anything.
-- For JOB, **TBD**
+- For NAME_FAMILY_STATUS, we use one hot encoding, since the family status is not ordinal
+- For NAME_HOUSING_TYPE, we use one hot encoding, since the housing type is not ordinal
+- For DAYS_BIRTH, we standardize the them because the data is -7489 and -24611, which is a large range, so we need to standardize so the model won't be influenced by its large magnitude. Additionally, according to our EDA, this is a normal distributed feature, so we use StandardScaler
+- FOR DAYS_EMPLOYED, We used MinMaxScaler to scale the data. We did not use StandardScaler because the feature is highly skewed and we don't  the model won't be influenced by its large magnitude.
+- For FLAG_MOBIL, it is already binary, so we don't need to do anything. I dropped it, since this feature is constant. In this case, including this feature does not make any sense, since it does not have any variability nor providing any predictive power.
+- For FLAG_WORK_PHONE, it is already binary, so we don't need to do anything.
 - For BEGIN_MONTHS, we standardize the them because the data, ranging from 0 to -60, is in different scale to other numerical data, so we can better fit them in our model.
 - For STATUS, we use ordinal encoding because the numbers have ordinal meaning. As the number gets larger, the person's status gets worse, indicating that the loan is more days overdue. We also use negative numbers to represent a better status, such as -1 to represent the loan is paid on time and -2 to represent no loan for that month.
