@@ -56,9 +56,7 @@ As mentioned above, the conclusion we reached at the end of training our first m
 
 # Milestone4
 
-As noted in our last milestone, even the simple logistic regression model with basic feature engineering yielded nearly identitical low train and test error. Therefore, in this milestone, the focus of our work is on investigating the cause of such model performance. Last time, we deployed stratification to make sure that our train dataset and test dataset both contained an equal proportion of 1s and 0s for `TARGET`, despite our effort, the first model still performed extremely well. This result ruled out the possibility that the good performance being coming from our test data not containing 1s.
-
-that the near-perfect accuracy came from just taking advantage of the dataset's imbalance in `y` variable and predicting just the popular `TARGET `. 
+As noted in our last milestone, even the simple logistic regression model with basic feature engineering yielded nearly identitical low train and test error. Therefore, in this milestone, the focus of our work is on investigating the cause of such model performance. Last time, we deployed stratification to make sure that our train dataset and test dataset both contained an equal proportion of 1s and 0s for `TARGET`, despite our effort, the first model still performed extremely well. This result ruled out the possibility that the good performance being coming from our test data not containing 1s (the near-perfect accuracy came from just taking advantage of the dataset's imbalance in `y` variable and predicting just the popular `TARGET `) .
 
 In this milestone, the first thing we tried is to see how our first model would perform under different metrics, hoping that by changing the metric, we can unveal the cause of such high accuracy. We tried using precision, recall, and F1 score to measure the performance of our model, however, the result came back as all 1s, showing that our model's prediction on the test dataset is perfect. 
 
