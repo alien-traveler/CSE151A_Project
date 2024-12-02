@@ -53,3 +53,26 @@ By looking at our train error and test error, it seems like our model is perform
 **Details on the model can be found in the `preprocess_model.ipynb` notebook.**
 
 As mentioned above, the conclusion we reached at the end of training our first model is that it is performing extremely well. However, we are uncertain about the cause of such supreme performance. Based on our current result, there isn't really much room for improvement. Therefore, we are aiming to try out other different models to see if the high performance is due to a mistake in our pipeline. 
+
+# Milestone4
+
+As noted in our last milestone, even the simple logistic regression model with basic feature engineering yielded nearly identitical low train and test error. Therefore, in this milestone, the focus of our work is on investigating the cause of such model performance. Last time, we deployed stratification to make sure that our train dataset and test dataset both contained an equal proportion of 1s and 0s for `TARGET`, despite our effort, the first model still performed extremely well. This result ruled out the possibility that the good performance being coming from our test data not containing 1s.
+
+that the near-perfect accuracy came from just taking advantage of the dataset's imbalance in `y` variable and predicting just the popular `TARGET `. 
+
+In this milestone, the first thing we tried is to see how our first model would perform under different metrics, hoping that by changing the metric, we can unveal the cause of such high accuracy. We tried using precision, recall, and F1 score to measure the performance of our model, however, the result came back as all 1s, showing that our model's prediction on the test dataset is perfect. 
+
+## Model 2: XGBoost classifier
+The second model that we tried is XGBoost classifier. We chose this model because we wanted to utilize its `scale_pos_weight` parameter to adjust the weight for the minority class, ensuring the model accounts for class imbalance effectively. In addition, we employed GridSearchCV to fine-tune the model's hyperparameters, including n_estimators, learning_rate, max_depth, min_child_weight, and gamma. After optimizing our model, we once again found the training and testing accuracy of the model being 100%. If we look at this result alone, it means that we once again achieved perfect prediction of the problem, with no overfitting nor underfitting since our train and test accuracy are identical. Given the results, another model that we may try is RandomForest Classifier because its capability to handle high dimonsional data (what we have in this dataset), resistence to overfitting, and its capability to handle imbalanced data. 
+
+However, we do not think the models should work like this without some problem going on. Very rarely do we get a perfect model that perfectly reveals the underlying patterns of the world, not to mention that we have two here. 
+
+Next, we used `RandomOverSampler` to transform our imbalanced dataset into a balanced one and reapplied the balanced data to the model we developed in Milestone 3. This allowed us to evaluate how balancing the data could enhance the model's performance. The results showed that the balanced dataset yielded a confusion matrix with nearly equal True Positives (TP) and True Negatives (TN), which was a significant improvement compared to Milestone 3, where there was a high number of True Positives but very few True Negatives. Additionally, we also applied the balanced data with the new XGBClassifier model, which also demonstrated strong performance. 
+
+**Details on the model can be found in the `test.ipynb` notebook.**
+
+In conclusion, our second model also demonstrated perfect performance by predicting not just train dataset, but also all items in the test dataset perfectly. Due to its perfect performance, we can't further improve it. Despite our effort to identify problem with how we delt with the dataset, the result remained the same. We did not see any column directly correlating to the target, we addressed the imbalance issue by using methods such as stratefication and `RandomOverSampler`. We are unable to find any other potential issue that may have cause such phenomenon from what we learned in this class and previous classes. Therefore, we believe the cause of this issue is because of the dataset itself being not diverse and representative of the real world data enough. Instead of revealing the underlying pattern of how credit card approval works in the real world, the dataset formed a certain pattern within itself that is not complicated. No matter how we split the data, the model still learns the underlying pattern of the dataset due to the simplicity of the underlying pattern within the dataset. 
+
+
+
+
