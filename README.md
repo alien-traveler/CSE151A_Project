@@ -70,7 +70,10 @@ Next, we used `RandomOverSampler` to transform our imbalanced dataset into a bal
 **Details on the model can be found in the [test.ipynb](test.ipynb) notebook.**
 
 In conclusion, our second model also demonstrated perfect performance by predicting not just train dataset, but also all items in the test dataset perfectly. Due to its perfect performance, we can't further improve it. Despite our effort to identify problem with how we delt with the dataset, the result remained the same. We did not see any column directly correlating to the target, we addressed the imbalance issue by using methods such as stratefication and `RandomOverSampler`. We are unable to find any other potential issue that may have cause such phenomenon from what we learned in this class and previous classes. Therefore, we believe the cause of this issue is because of the dataset itself being not diverse and representative of the real world data enough. Instead of revealing the underlying pattern of how credit card approval works in the real world, the dataset formed a certain pattern within itself that is not complicated. No matter how we split the data, the model still learns the underlying pattern of the dataset due to the simplicity of the underlying pattern within the dataset. 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> b541e9e121bff183070073261cabd07d3fccf256
