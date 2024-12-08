@@ -70,10 +70,53 @@ Next, we used `RandomOverSampler` to transform our imbalanced dataset into a bal
 **Details on the model can be found in the [test.ipynb](test.ipynb) notebook.**
 
 In conclusion, our second model also demonstrated perfect performance by predicting not just train dataset, but also all items in the test dataset perfectly. Due to its perfect performance, we can't further improve it. Despite our effort to identify problem with how we delt with the dataset, the result remained the same. We did not see any column directly correlating to the target, we addressed the imbalance issue by using methods such as stratefication and `RandomOverSampler`. We are unable to find any other potential issue that may have cause such phenomenon from what we learned in this class and previous classes. Therefore, we believe the cause of this issue is because of the dataset itself being not diverse and representative of the real world data enough. Instead of revealing the underlying pattern of how credit card approval works in the real world, the dataset formed a certain pattern within itself that is not complicated. No matter how we split the data, the model still learns the underlying pattern of the dataset due to the simplicity of the underlying pattern within the dataset. 
-<<<<<<< HEAD
+
+# Milestone5
+
+## Introduction
+In this project, we tried to tackle the task of predicting credit card approvals using machine learning models. This project was chosen because of its practical significance in the financial industry and its relevance to real-world decision-making processes. Credit card approvals involve evaluating an applicant’s financial health and demographic information, and a good predictive model can help automate and streamline this process, reducing time and cost for institutions. What makes this project particularly exciting is the opportunity to work with a dataset that mirrors a real-world application, combining data preprocessing, feature engineering, and model evaluation to tackle a problem with immediate, tangible benefits. The challenge of handling class imbalance and diverse feature types adds complexity, making it a valuable learning experience and a chance to explore advanced techniques.
+
+Having a robust predictive model for credit card approvals is important. It allows financial institutions to make consistent, data-driven decisions, reducing the likelihood of human errors or subjective biases. A reliable model can also improve accessibility by enabling quicker approvals for applicants who meet the criteria, fostering financial inclusion. Conversely, identifying potential risks accurately helps institutions maintain their financial stability, ultimately benefiting both the consumers and the financial ecosystem. In this project, we aim to investigate how various machine learning models perform in predicting credit card approvals, explore the impact of preprocessing techniques, and evaluate the limitations of the dataset. Through this work, we hope to highlight the critical role of representative data and thoughtful model design in achieving equitable and reliable outcomes in financial applications.
+## Methods Section
+### Preprocessing
+#### Missing Values
+We found no missing values in the dataset, eliminating the need for imputation or removal.
+
+#### Categorical Data Encoding
+For variables like `CODE_GENDER`, `FLAG_OWN_CAR`, and `FLAG_OWN_REALTY`, binary encoding was applied. Features with inherent ordinal relationships, such as `NAME_EDUCATION_TYPE`, were ordinally encoded (e.g., higher education levels received larger numerical values).Features like `NAME_FAMILY_STATUS`, `NAME_HOUSING_TYPE`, and `JOB` were one-hot encoded to capture non-ordinal relationships. For JOB, less frequent categories were grouped as "Other" to reduce model complexity.
+
+#### Quantitative Data Transformation
+Continuous variables like `AMT_INCOME_TOTAL`, `DAYS_BIRTH`, and `BEGIN_MONTHS` were standardized using either StandardScaler or MinMaxScaler, depending on their distributions. Also, we evaluated the effect of outliers on `AMT_INCOME_TOTAL` and other features, standardizing them to minimize their influence on the model while preserving all data points.
+
+#### Feature Selection:
+We removed the feature `FLAG_MOBIL` because it was constant across all rows, providing no predictive value.
+
+#### Target Variable:
+To address the class imbalance in the variable `Target`, we experimented with RandomOverSampler to create a balanced `Target` dataset.
 
 
+### Method 1: Logistcal regression
+For our first model, we utilized logistic regression due to its simplicity, interpretability, and effectiveness in binary classification problems such as predicting credit card approvals. Logistic regression models the probability of an applicant being approved or rejected based on the provided features by fitting a logistic function to the dataset.
 
+We trained the logistic regression model on the preprocessed dataset after applying feature encoding, scaling, and handling class imbalance through stratified splitting.The target variable, TARGET, was used to classify applicants into two categories: approved or rejected. To ensure robust evaluation, we implemented k-fold cross-validation and monitored metrics such as accuracy, precision, recall, and F1-score to measure performance.
 
-=======
->>>>>>> b541e9e121bff183070073261cabd07d3fccf256
+### Method 2: XGBoost Classifier
+For the second model, we used the XGBoost Classifier, a powerful ensemble learning algorithm known for its ability to handle complex data patterns and imbalanced datasets effectively. XGBoost is particularly suitable for binary classification problems and allows fine-tuning of hyperparameters to achieve optimal performance.
+
+#### Method 2.1: XGBoost Classifier with imbalanced dataset
+When dealing with imbalanced dataset, we tried to utilizing the `scale_pos_weight` parameter to assign greater weight to the minority class, ensuring the model accounts for class imbalance during training. In addition, we employed GridSearchCV to fine-tune the model's hyperparameters, including n_estimators, learning_rate, max_depth, min_child_weight, and gamma. Lastly, cross-validation was used to ensure that the tuned hyperparameters generalized well across different data splits.
+
+#### Method 2.2: XGBoost Classifier with balanced dataset
+To address the class imbalance in the dataset, we applied RandomOverSampler to create a balanced dataset where the minority class (TARGET = 1) was oversampled to match the majority class (TARGET = 0). The balanced dataset was then used to train the XGBoost Classifier to evaluate how balancing the data impacts model performance and predictive power. Then, we followed the same steps as previous XGBosst training by running GridSearchCV to optimize key hyperparameters for the balanced dataset. This GirdSearchCV also includes n_estimators, learning_rate, max_depth, min_child_weight, and gamma. We also applied cross-validation to ensure the model’s generalization ability to unseen data
+
+### Method 3: Investigating Dominant Features by Removing  `Status`
+The motivation for this method stems from the fact that our previous models (logistic regression and XGBoost) achieved near-perfect performance, which raises questions about what drives such results. The detailed performance results will be analyzed in the next section. Through this method, we aim to investigate the underlying cause of this perfection by identifying and analyzing the most influential features in the dataset.
+
+To achieve this, we calculated the correlation between each feature and the target variable (TARGET) to rank their importance. We observed that the feature Status had a relatively high correlation of 0.35 with TARGET, suggesting it might have a strong influence on the model's predictions. To test this hypothesis, we removed the feature Status and retrained both the logistic regression model and the XGBoost Classifier (with imbalanced and balanced datasets). For the XGBoost models, we re-optimized the hyperparameters using GridSearchCV to ensure the models performed optimally without the influence of the removed feature. By comparing the performance of these updated models to the original ones, we aim to determine whether the dominance of the Status feature was a contributing factor to the perfect performance observed earlier
+## Results Section
+
+## Discussion Section
+
+## Conclusion
+
+## Statement of Collaboration
