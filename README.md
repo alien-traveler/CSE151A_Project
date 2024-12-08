@@ -114,9 +114,22 @@ The motivation for this method stems from the fact that our previous models (log
 
 To achieve this, we calculated the correlation between each feature and the target variable (TARGET) to rank their importance. We observed that the feature Status had a relatively high correlation of 0.35 with TARGET, suggesting it might have a strong influence on the model's predictions. To test this hypothesis, we removed the feature Status and retrained both the logistic regression model and the XGBoost Classifier (with imbalanced and balanced datasets). For the XGBoost models, we re-optimized the hyperparameters using GridSearchCV to ensure the models performed optimally without the influence of the removed feature. By comparing the performance of these updated models to the original ones, we aim to determine whether the dominance of the Status feature was a contributing factor to the perfect performance observed earlier
 ## Results Section
+**Incomplete: need figures**
 
+
+For model1, the training metrics indicate exceptional performance. The model achieves 100% training accuracy, along with near-perfect precision, recall, and F1-scores across all classes. The confusion matrix further supports these results, showing only eight misclassifications in the majority class and none in the minority class. 
+
+The second model also achieves perfect performance, with 100% accuracy, precision, recall, and F1-scores on both the training and test datasets. The confusion matrix confirms no misclassifications, demonstrating flawless generalization and error-free predictions across all classes. 
+
+After we removed the `Status` feature, the logistic regression model achieves an accuracy of 61.06%, with moderate precision, recall, and F1-scores for both classes. Class 0 has a slightly better recall (64%) compared to class 1 (58%), while class 1 has marginally better precision (62% vs. 60%). The confusion matrix highlights significant misclassifications in both classes, indicating room for improvement in the model's ability to generalize.
+
+Similarly, the XGBoost Classifier demonstrates a strong performance with a training error of 4.62% and a test error of 4.68%, indicating consistent generalization between training and testing. It achieves 95% accuracy, precision, recall, and F1-scores across both classes. The confusion matrix shows that most predictions are correct, with a small number of misclassifications: 6,833 for class 0 and 8,203 for class 1. Overall, the model performs well but has slight room for improvement in reducing errors.
 ## Discussion Section
+**Incomplete**
 
+This may be evidence that our model is within the ideal range of model complexity. However, it is very suspicious since our model is not very complicated and we've only applied basic feature engineering on the features. 
+
+Despite our effort to identify problem with how we delt with the dataset, the result remained the same.
 ## Conclusion
 
 ## Statement of Collaboration
