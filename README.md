@@ -118,12 +118,20 @@ To achieve this, we calculated the correlation between each feature and the targ
 
 
 For model1, the training metrics indicate exceptional performance. The model achieves 100% training accuracy, along with near-perfect precision, recall, and F1-scores across all classes. The confusion matrix further supports these results, showing only eight misclassifications in the majority class and none in the minority class. 
+![image](imgs/cm_log_balance.png)
+
 
 The second model also achieves perfect performance, with 100% accuracy, precision, recall, and F1-scores on both the training and test datasets. The confusion matrix confirms no misclassifications, demonstrating flawless generalization and error-free predictions across all classes. 
+![image](imgs/cm_xgboost_balance.png)
 
 After we removed the `Status` feature, the logistic regression model achieves an accuracy of 61.06%, with moderate precision, recall, and F1-scores for both classes. Class 0 has a slightly better recall (64%) compared to class 1 (58%), while class 1 has marginally better precision (62% vs. 60%). The confusion matrix highlights significant misclassifications in both classes, indicating room for improvement in the model's ability to generalize.
 
+![image](imgs/cm_log_no_status.png)
+
 Similarly, the XGBoost Classifier demonstrates a strong performance with a training error of 4.62% and a test error of 4.68%, indicating consistent generalization between training and testing. It achieves 95% accuracy, precision, recall, and F1-scores across both classes. The confusion matrix shows that most predictions are correct, with a small number of misclassifications: 6,833 for class 0 and 8,203 for class 1. Overall, the model performs well but has slight room for improvement in reducing errors.
+
+![image](imgs/cm_no_status_xgb.png)
+
 ## Discussion Section
 **Incomplete**
 
