@@ -88,11 +88,17 @@ When exploring the dataset, we first looked into the missing entries for each fe
 #### Feature-wise Distribution
 Then we looked at the unique values of each feature and explored each of their distributions respectively. Looking at the unique values and distributions of the different features will inform and guide us for our next steps when we preprocess the data from model training.
 Some of the distributions we have looked at:
+
 Distribution of the different jobs
+
 ![image](imgs/job_distr.png)
+
 Distribution of the different STATUS:
+
 ![image](imgs/STA_dist.png)
+
 Distribution of the different income:
+
 ![image](imgs/Income_distri.png)
 
 
