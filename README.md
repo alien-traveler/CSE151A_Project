@@ -82,6 +82,7 @@ Our focus is to build a robust predictive model for credit card approvals. It al
 ## Methods Section
 
 ### Exploratory Data Analysis
+The code can be found in the [data_exploration.ipynb](data_exploration.ipynb) notebook.
 #### Missing Value
 When exploring the dataset, we first looked into the missing entries for each feature, in which we found none. 
 
@@ -103,7 +104,7 @@ Distribution of the different income:
 
 
 ### Preprocessing
-
+The code can be found in the [preprocess.ipynb](preprocess.ipynb) notebook.
 #### Missing Values
 We found no missing values in the dataset, eliminating the need for imputation or removal.
 #### Categorical Data Encoding
@@ -115,15 +116,19 @@ We removed the feature `FLAG_MOBIL` because it was constant across all rows, pro
 #### Target Variable:
 To address the class imbalance in the variable `Target`, we experimented with RandomOverSampler to create a balanced `Target` dataset.
 ### Model 1: Logistcal regression
+The code can be found in the [model1.ipynb](model1.ipynb) notebook.
 For our first model, we utilized logistic regression due to its simplicity, interpretability, and effectiveness in binary classification problems such as predicting credit card approvals. Logistic regression models the probability of an applicant being approved or rejected based on the provided features by fitting a logistic function to the dataset.
 We trained the logistic regression model on the preprocessed dataset after applying feature encoding, scaling, and handling class imbalance through stratified splitting. The target variable, TARGET, was used to classify applicants into two categories: approved or rejected. To ensure robust evaluation, we implemented k-fold cross-validation and monitored metrics such as accuracy, precision, recall, and F1-score to measure performance.
 ### Model 2: XGBoost Classifier
 For the second model, we used the XGBoost Classifier, a powerful ensemble learning algorithm known for its ability to handle complex data patterns and imbalanced datasets effectively. XGBoost is particularly suitable for binary classification problems and allows fine-tuning of hyperparameters to achieve optimal performance.
 #### Model 2.1: XGBoost Classifier with imbalanced dataset
+The code can be found in the [model2_1.ipynb](model2_1.ipynb) notebook.
 When dealing with imbalanced dataset, we tried to utilizing the `scale_pos_weight` parameter to assign greater weight to the minority class, ensuring the model accounts for class imbalance during training. In addition, we employed GridSearchCV to fine-tune the model's hyperparameters, including n_estimators, learning_rate, max_depth, min_child_weight, and gamma. Lastly, cross-validation was used to ensure that the tuned hyperparameters generalized well across different data splits.
 #### Model 2.2: XGBoost Classifier with balanced dataset
+The code can be found in the [model2_2.ipynb](model2_2.ipynb) notebook.
 To address the class imbalance in the dataset, we applied RandomOverSampler to create a balanced dataset where the minority class (TARGET = 1) was oversampled to match the majority class (TARGET = 0). The balanced dataset was then used to train the XGBoost Classifier to evaluate how balancing the data impacts model performance and predictive power. Then, we followed the same steps as previous XGBosst training by running GridSearchCV to optimize key hyperparameters for the balanced dataset. This GirdSearchCV also includes n_estimators, learning_rate, max_depth, min_child_weight, and gamma. We also applied cross-validation to ensure the model’s generalization ability to unseen data
 ### Feature Investigation: Investigating Dominant Features by Removing  `Status`
+The code can be found in the [model2_feature.ipynb](model2_feature.ipynb) notebook.
 The motivation for this method stems from the fact that our previous models (logistic regression and XGBoost) achieved near-perfect performance, which raises questions about what drives such results. The detailed performance results will be analyzed in the next section. Through this method, we aim to investigate the underlying cause of this perfection by identifying and analyzing the most influential features in the dataset.
 To achieve this, we calculated the correlation between each feature and the target variable (TARGET) to rank their importance. We observed that the feature Status had a relatively high correlation of 0.35 with TARGET, suggesting it might have a strong influence on the model's predictions. To test this hypothesis, we removed the feature Status and retrained both the logistic regression model and the XGBoost Classifier (with imbalanced and balanced datasets). For the XGBoost models, we re-optimized the hyperparameters using GridSearchCV to ensure the models performed optimally without the influence of the removed feature. By comparing the performance of these updated models to the original ones, we aim to determine whether the dominance of the Status feature was a contributing factor to the perfect performance observed earlier
 
@@ -175,3 +180,5 @@ Jessie: I actively participated in discussions on dataset selection and conducte
 During analysis, I discovered that the model's performance was overly optimized when including all features, primarily due to the dominant influence of the "STATUS" feature. I conducted tests that demonstrated the model could achieve nearly 100% prediction accuracy using only the "STATUS" feature. However, with it, the linear regression model performed better. To improve performance without relying on the "STATUS" feature, I transitioned to using the XGBoost Classifier, achieving a 95% accuracy rate even without including "STATUS." Finally, I enhanced the report by including confusion matrix visualizations to provide a clearer understanding of the model's performance and classification outcomes. 
 
 Jiesen: I also activevly participated in the discussions on the dataset selection and proposed the dataset that we ended up using. I did the exploratory data analysis on half of the features of the dataset, also performing data engineering on them. On the problem of imbalanced dataset, I proposed different possible causes of the issue and proposed different potential solutions to the issue. Later on of the project, I took on the role of the writer. I refined all of the reports since Milestone2, while writing discussion and conclusion for each of them. For the final report, I wrote the EDA section of the methods, the entirety of the discussion section, and the conclusion section. 
+
+Will: I actively contributed to discussions on dataset selection, data exploration, preprocessing, and the development of our models (Model 1 and Model 2). For my portion of the project’s features, I applied one-hot encoding, standardization, and created visualizations such as pairplots and boxplots. Additionally, I proposed and implemented logistic regression as our initial model and addressed data imbalance by incorporating the stratify parameter. Beyond the technical work, I assisted in drafting earlier milestone documents, contributed to writing the result section of the final report, and refined the report for overall consistency and clarity. Throughout the project, I collaborated with the team to manage the project timeline, ensuring that we met all our deadlines and milestones. I also oversaw version control on GitHub, resolved merge conflicts, and handled other logistical tasks. By coordinating team efforts and clarifying individual responsibilities, I helped maintain an effective and cohesive working environment.
